@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "deep-translator>=1.11.4",
     "dotenv>=0.9.9",
+    "elevenlabs>=2.15.0",
     "faiss-cpu>=1.12.0",
     "fastapi>=0.116.1",
     "indic-transliteration>=2.3.75",
@@ -14,6 +15,7 @@ dependencies = [
     "langchain-community>=0.3.29",
     "langchain-google-genai>=2.0.10",
     "langdetect>=1.0.9",
+    "pydub>=0.25.1",
     "python-dotenv>=1.1.1",
     "python-multipart>=0.0.20",
     "requests>=2.32.5",
