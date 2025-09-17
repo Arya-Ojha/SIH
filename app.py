@@ -16,7 +16,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import TextLoader
-from elevenlabs import VoiceSettings, generate,set_api_key
+from elevenlabs import VoiceSettings,set_api_key
 from elevenlabs.client import ElevenLabs
 import tempfile
 import urllib.request
@@ -41,9 +41,9 @@ vector_store = None
 qa_chain = None
 
 # ElevenLabs configuration
-VOICE_ID = "pNInz6obpgDQGcFmaJgB"  # Adam voice - you can change this
+VOICE_ID = "CZdRaSQ51p0onta4eec8"  # Adam voice - you can change this
 TTS_MODEL = "eleven_multilingual_v2"
-STT_MODEL = "eleven_english_sts_v2"
+STT_MODEL = "Scribe_v1"
 
 def initialize_rag_system():
     global vector_store, qa_chain
@@ -118,10 +118,10 @@ def text_to_speech_elevenlabs(text: str, voice_id: str = VOICE_ID) -> bytes:
         print(f"🔊 Converting text to speech: {text[:50]}...")
         
         # Generate audio using ElevenLabs
-        audio = generate(
+        audio = client.text_to_speech.convert(
             text=text,
-            voice=voice_id,
-            model=TTS_MODEL,
+            voice_id=voice_id,
+            model_id=TTS_MODEL,
             voice_settings=VoiceSettings(
                 stability=0.71,
                 similarity_boost=0.5,
@@ -155,8 +155,8 @@ def speech_to_text_elevenlabs(audio_url: str) -> str:
             
             # Use ElevenLabs STT
             with open(mp3_path, "rb") as audio_file:
-                response = elevenlabs_client.speech_to_text.v1.speech_to_text_post(
-                    audio=audio_file,
+                response = elevenlabs_client.speech_to_text.convert(
+                    file=audio_file ,
                     model_id=STT_MODEL,
                 )
                 
