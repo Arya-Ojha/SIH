@@ -1,7 +1,5 @@
 import os
-import io
 import base64
-import requests
 from fastapi import FastAPI, Form
 from fastapi.responses import PlainTextResponse
 from contextlib import asynccontextmanager
@@ -18,7 +16,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
 from langchain_community.document_loaders import TextLoader
-from elevenlabs import VoiceSettings, generate, save, set_api_key
+from elevenlabs import VoiceSettings, generate,set_api_key
 from elevenlabs.client import ElevenLabs
 import tempfile
 import urllib.request
@@ -412,17 +410,6 @@ async def whatsapp_webhook(
         resp.message("Sorry, I encountered an error processing your message. Please try again.")
         return PlainTextResponse(str(resp))
 
-@app.get("/voices")
-async def get_available_voices():
-    """
-    Get available ElevenLabs voices
-    """
-    try:
-        response = elevenlabs_client.voices.get_all()
-        voices = [{"voice_id": voice.voice_id, "name": voice.name} for voice in response.voices]
-        return {"voices": voices}
-    except Exception as e:
-        return {"error": str(e)}
 
 @app.post("/test-tts")
 async def test_tts(text: str = Form(...)):
