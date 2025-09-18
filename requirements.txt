@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sentence-transformers
+torch
+googletrans
+langdetect
+pymupdf
+faiss-cpu
+google-generativeai
+python-multipart
+pydantic
+reportlab
